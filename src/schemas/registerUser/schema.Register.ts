@@ -6,7 +6,7 @@ export const createdUserSchema = z.object({
     name: z.string().min(2).max(125),
     email: z.string().email(),
     avatar: z.string().default(""),
-    password: z.string().transform((pass) => {
+    pasword: z.string().transform((pass) => {
         return hashSync(pass);
     }),
     birthdate: z.date(),
@@ -21,4 +21,4 @@ export const returnCreatedUser = createdUserSchema.extend({
     id: z.string()
 });
 
-export const returnCreatedUserWithPassword = returnCreatedUser.omit({password:true});
+export const returnCreatedUserWithPassword = returnCreatedUser.omit({pasword:true});
