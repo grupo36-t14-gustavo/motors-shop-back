@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createdUserService } from "../../services/registerUser/registerUser.service";
+import { createdUserService } from "../../services/User/registerUser.service";
 
 const created = 201;
 export const createdUserController = async(req:Request, resp:Response) =>{
