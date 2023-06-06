@@ -1,10 +1,12 @@
 import { NextFunction, Request, Response } from "express";
 import { ZodError } from "zod";
+const serverError = 500;
+const badRequest = 400;
 
 class AppError extends Error {
     statusCode: number;
-    // eslint-disable-next-line no-magic-numbers
-    constructor(message: string, statusCode = 400) {
+    
+    constructor(message: string, statusCode = badRequest) {
         super(message);
         this.statusCode = statusCode;
     }
@@ -17,18 +19,18 @@ const handlreErrors = async (
         });
     }
     if (error instanceof ZodError) {
-        // eslint-disable-next-line no-magic-numbers
-        return res.status(400).json({
+       
+        return res.status(badRequest).json({
             message: error.flatten().fieldErrors,
         });
     }
     if (error instanceof ZodError) {
-        // eslint-disable-next-line no-magic-numbers
-        return res.status(400).json(error.flatten().fieldErrors);
+        
+        return res.status(badRequest).json(error.flatten().fieldErrors);
     }
     console.log(error);
-    // eslint-disable-next-line no-magic-numbers
-    return res.status(500).json({
+   
+    return res.status(serverError).json({
         message: "Internal server error",
     });
 };

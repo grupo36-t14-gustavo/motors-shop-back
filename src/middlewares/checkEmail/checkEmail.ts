@@ -3,7 +3,8 @@ import { NextFunction, Request, Response } from "express";
 import { AppError } from "../../errors";
 
 const prisma = new PrismaClient();
-
+const serverError = 500;
+const conflict = 409;
 const checkEmailMiddle = async (
     req: Request,
     res: Response,
@@ -22,14 +23,14 @@ const checkEmailMiddle = async (
 
         if (duplicatedEmail) {
             // eslint-disable-next-line no-magic-numbers
-            throw new AppError("Email already exists", 409);
+            throw new AppError("Email already exists", conflict);
         }
 
         return next();
     } catch (error) {
         console.error(error);
         // eslint-disable-next-line no-magic-numbers
-        throw new AppError("Internal server error", 500);
+        throw new AppError("Internal server error", serverError);
     }
 };
 
