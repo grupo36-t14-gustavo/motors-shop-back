@@ -1,0 +1,80 @@
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+model User {
+  id String @id @default(uuid()) 
+  name String @unique
+  email String @unique
+  avatar String @default("")
+  pasword String
+  birthdate DateTime
+  cellphone String
+  cpf String
+  bio String?
+  isAdmin Boolean @default(false)
+  createdAt DateTime @default(now())
+  addresses Address[]
+  comments Comment[]
+  cars Car[]
+}
+model Address{
+  id String @id @default(uuid())
+  cep String
+  state String
+  city String
+  street String
+  number String
+  complement String?
+  userId String
+  user User @relation(fields: [userId], references: [id])
+}
+model Car {
+  id String @id @default(uuid())
+  title String
+  brand String
+  model String 
+  description String
+  year Int
+  km Int
+  color String
+  fuelType FuelOptions
+  price Float
+  isActive Boolean @default(true)
+  // ownerId String
+  ownerId User @relation(fields: [id], references: [id])
+  createAt DateTime @default(now())
+  images CarImage[]
+  comments Comment[]
+}
+model CarImage {
+  id          String     @id @default(uuid())
+  img         String
+  isMain      Boolean    @default(false)
+  carId       String
+  car         Car        @relation(fields: [carId], references: [id])
+}
+model Comment {
+  id          String     @id @default(uuid())
+  content     String
+  userId      String
+  user        User       @relation(fields: [userId], references: [id])
+  carId       String
+  car         Car        @relation(fields: [carId], references: [id])
+  createdAt   DateTime   @default(now())
+}
+enum FuelOptions{
+  Gasolina
+  Diesel
+  Alcool
+  Flex
+  Eletrico
+  hibrido
+}
+//cmd npx prisma generate --schema=src/prisma/schema.prisma
+//$ npx ts-node-dev src/server.ts
