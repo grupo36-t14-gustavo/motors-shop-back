@@ -6,7 +6,7 @@ import userRouter from "./routes/index";
 export const app: Application = express();
 app.use(express.json());
 
-app.use("/register", userRouter);
+app.use("", userRouter);
 
 
 
