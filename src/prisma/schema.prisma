@@ -46,8 +46,8 @@ model Car {
   fuelType FuelOptions
   price Float
   isActive Boolean @default(true)
-  // ownerId String
-  ownerId User @relation(fields: [id], references: [id])
+  ownerId String
+  owner User @relation(fields: [ownerId], references: [id])
   createAt DateTime @default(now())
   images CarImage[]
   comments Comment[]
