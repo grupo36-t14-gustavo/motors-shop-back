@@ -1,0 +1,24 @@
+import { CarImage, PrismaClient } from "@prisma/client";
+import { AppError } from "../../errors";
+import { TreturnPhotoCar } from "../../interfaces/Car/interfaceAdsCars";
+
+const prisma = new PrismaClient();
+export const createdPhotoCarService = async (photoData: CarImage,carId:string):Promise<TreturnPhotoCar> =>{
+    try {
+        const car = await prisma.car.findUnique({where: {id: carId}});
+        if(!car){
+            throw new AppError("car not found");
+        } 
+        const newImageCar = await prisma.carImage.create({
+            data:{
+                ...photoData,
+                carId:car.id
+            }
+        });
+        return newImageCar;
+    }catch (error) {
+        console.log(error);
+        throw new AppError("verify the fields");
+    }
+  
+};

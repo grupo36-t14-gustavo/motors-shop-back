@@ -1,13 +1,13 @@
 import { z } from "zod";
 
 const fuelOptions = z.enum(["Gasolina","Diesel","Alcool","Flex","Eletrico","hibrido"]);
-const carImageSchema = z.object({
+export const CarImageSchema = z.object({
     img: z.string(),
     isMain: z.boolean().default(false),
     carId: z.string()
 });
 
-export const returnCarImage = carImageSchema.extend({
+export const returnCarImage = CarImageSchema.extend({
     id: z.string()
 });
 export const createdCarsAdsSchema = z.object({
@@ -29,7 +29,7 @@ export const createdCarsAdsSchema = z.object({
 export const returnCreatAds = createdCarsAdsSchema.extend({
     id: z.string(),
     ownerId: z.string(),
-    // images: CarImage[],
+    // images: z.array(CarImageSchema),
     // comments: Comment[],
 });
 
