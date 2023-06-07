@@ -6,4 +6,5 @@ export const createdUserController = async(req:Request, resp:Response) =>{
     const userData = req.body;
     const createdNewUser = await createdUserService(userData);
     return resp.status(created).json(createdNewUser);
+
 };

@@ -1,9 +1,13 @@
 import express, { Application } from "express";
 import "express-async-errors";
 import { handlreErrors } from "./errors";
-import { userRouter } from "./routes";
+import userRouter from "./routes/index";
 
-const app: Application = express();
+export const app: Application = express();
 app.use(express.json());
+
+app.use("", userRouter);
+
+
+
 app.use(handlreErrors);
-app.use("/register", userRouter);

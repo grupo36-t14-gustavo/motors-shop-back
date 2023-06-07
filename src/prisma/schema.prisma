@@ -9,11 +9,11 @@ generator client {
 }
 model User {
   id String @id @default(uuid()) 
-  name String @unique
+  name String 
   email String @unique
   avatar String @default("")
-  pasword String
-  birthdate DateTime
+  password String
+  birthdate String
   cellphone String
   cpf String
   bio String?

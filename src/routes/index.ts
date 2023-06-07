@@ -1,11 +1,17 @@
 import { Router } from "express";
-import { createdUserController } from "../controllers/registerUser/registerUser.controller";
+import { loginController } from "../controllers/User/login.controller";
+import { createdUserController } from "../controllers/User/registerUser.controller";
 import { checkEmailMiddle } from "../middlewares/checkEmail/checkEmail";
 import { validateDataMiddleware } from "../middlewares/validatedData/validatedData";
-import { createdUserSchema } from "../schemas/registerUser/schema.Register";
-const userRouter:Router = Router();
+import { createdLoginSchema } from "../schemas/User/schema.Login";
+import { createdUserSchema } from "../schemas/User/schema.Register";
+
+const userRouter: Router = Router();
 
 
-userRouter.post("", validateDataMiddleware(createdUserSchema), checkEmailMiddle, createdUserController);
+userRouter.post("/register",validateDataMiddleware(createdUserSchema), checkEmailMiddle, createdUserController);
+userRouter.post("/login", validateDataMiddleware(createdLoginSchema),loginController);
 
-export { userRouter };
+
+export default userRouter ;
+
