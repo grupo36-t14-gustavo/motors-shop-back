@@ -9,12 +9,12 @@ export const createdUserSchema = z.object({
     password: z.string().transform((pass) => {
         return hashSync(pass);
     }),
-    birthdate: z.date(),
+    birthdate: z.string(),
     cellphone: z.string(),
     cpf: z.string(),
     bio: z.string().optional(),
     isAdmin: z.boolean().default(false),
-    createdAt:z.string().optional().default(() => new Date().toISOString()),
+
 
 });
 export const returnCreatedUser = createdUserSchema.extend({
