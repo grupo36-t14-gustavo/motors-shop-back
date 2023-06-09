@@ -1,15 +1,11 @@
-import { PrismaClient } from "@prisma/client";
 import "dotenv/config";
-import express from "express";
-const prisma = new PrismaClient();
 
-const app = express();
+import { app } from "./main";
 
-app.use(express.json());
 
-// eslint-disable-next-line no-magic-numbers
-const port = process.env.PORT || 3000;
+const port = 3000;
 
 app.listen(port, () => {
+
     console.log(`Servidor rodando em http://localhost:${port}`);
 });
