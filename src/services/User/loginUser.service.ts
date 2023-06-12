@@ -2,8 +2,8 @@ import { PrismaClient } from "@prisma/client";
 import { compare } from "bcryptjs";
 import "dotenv/config";
 import jwt from "jsonwebtoken";
-import { AppError } from "../../errors";
 import { Tlogin } from "../../interfaces";
+import { AppError } from "../../utils/errorHandler.util";
 const prisma = new PrismaClient();
 const errorCredentials = 401;
 const createdLoginService = async(loginData: Tlogin): Promise<string> =>{
