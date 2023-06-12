@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
+import { statusSuccess } from "../../constants";
 import { createdUserService } from "../../services/User/registerUser.service";
 
-const created = 201;
-export const createdUserController = async(req:Request, resp:Response) =>{
+export const registerUserController = async(req:Request, resp:Response) =>{
     const userData = req.body;
     const createdNewUser = await createdUserService(userData);
-    return resp.status(created).json(createdNewUser);
+    return resp.status(statusSuccess.CREATED).json(createdNewUser);
 
 };

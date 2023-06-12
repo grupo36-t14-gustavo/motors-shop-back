@@ -1,7 +1,7 @@
 import { PrismaClient, User } from "@prisma/client";
-import { AppError } from "../../errors";
 import { ToffPassword } from "../../interfaces";
 import { returnCreatedUserWithPassword } from "../../schemas/User/schema.Register";
+import { AppError } from "../../utils/errorHandler.util";
 
 const prisma = new PrismaClient();
 
