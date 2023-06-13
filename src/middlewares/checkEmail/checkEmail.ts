@@ -35,4 +35,3 @@ const checkEmailMiddle = async (
 };
 
 export { checkEmailMiddle };
-
