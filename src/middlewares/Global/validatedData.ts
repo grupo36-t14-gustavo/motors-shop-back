@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { ZodTypeAny } from "zod";
 
-const validateDataMiddleware = (schema:ZodTypeAny) =>(req:Request, resp:Response, next:NextFunction)=>{
+export const validateDataMiddleware = (schema:ZodTypeAny) =>(req:Request, resp:Response, next:NextFunction)=>{
   
     const validatedData = schema.parse(req.body);
     req.body = validatedData;
@@ -9,5 +9,5 @@ const validateDataMiddleware = (schema:ZodTypeAny) =>(req:Request, resp:Response
     return next();
 
 };
-export { validateDataMiddleware };
+
 

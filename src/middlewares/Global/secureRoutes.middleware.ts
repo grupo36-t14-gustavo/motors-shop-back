@@ -1,18 +1,16 @@
 import { NextFunction, Request, Response } from "express";
-import {
-    getPayload,
-    getUserWithPayload,
-} from "../../utils/retrievePayload.util";
-import { AppError } from "../../errors";
 import { statusError } from "../../constants";
+import { AppError } from "../../utils/errorHandler.util";
+import { getPayloadUtil, } from "../../utils/getPayload.util";
+import { getUserWithPayloadUtil } from "../../utils/getUserWithPayload.util";
 
 export const secureRoutesMiddleware = async (
     req: Request,
     res: Response,
     next: NextFunction
 ) => {
-    const payload = getPayload(req);
-    const existentUser = await getUserWithPayload(payload);
+    const payload = getPayloadUtil(req);
+    const existentUser = await getUserWithPayloadUtil(payload);
 
     if (!existentUser) {
         throw new AppError(
