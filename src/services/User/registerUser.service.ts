@@ -1,14 +1,21 @@
-import { PrismaClient, User } from "@prisma/client";
-import { ToffPassword } from "../../interfaces";
-import { returnCreatedUserWithPassword } from "../../schemas/User/schema.Register";
+import { Address, PrismaClient, User } from "@prisma/client";
+import { returnCreatedUserWithPassword } from "../../schemas/User/userRegister.schema";
 import { AppError } from "../../utils/errorHandler.util";
 
 const prisma = new PrismaClient();
 
-export const createdUserService = async(userData: User): Promise<ToffPassword> =>{
+export const createdUserService = async(userData: User, addressData: Address)=>{
     try {
         const newUser = await prisma.user.create({
-            data:userData,
+            data:{
+                ...userData,
+                address:{
+                    create: addressData
+                },
+            },
+            include:{
+                address: true,
+            }
         });
         const parseUser = returnCreatedUserWithPassword.parse(newUser);
         return parseUser;
