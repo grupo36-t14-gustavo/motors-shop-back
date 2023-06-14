@@ -22,14 +22,11 @@ export const checkEmailMiddleware = async (
         });
 
         if (duplicatedEmail) {
-            
             throw new AppError("Email already exists", statusError.CONFLICT);
         }
 
         return next();
     } catch (error) {
-        console.error(error);
-  
         throw new AppError("Internal server error", statusError.SERVER_ERROR);
     }
 };

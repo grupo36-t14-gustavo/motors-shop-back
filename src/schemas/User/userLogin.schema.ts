@@ -4,6 +4,3 @@ export const createdLoginSchema = z.object({
     email: z.string().email(),
     password: z.string(),
 });
-
-
-
