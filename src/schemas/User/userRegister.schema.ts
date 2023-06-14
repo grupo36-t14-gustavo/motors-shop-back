@@ -1,5 +1,6 @@
 import { hashSync } from "bcryptjs";
 import { z } from "zod";
+import { createdAdress } from "./userAddress";
 
 const charMin = 2;
 const charMax = 125;
@@ -16,6 +17,7 @@ export const createdUserSchema = z.object({
     cpf: z.string(),
     bio: z.string().optional(),
     isAdmin: z.boolean().default(false),
+    address: createdAdress
 
 
 });
