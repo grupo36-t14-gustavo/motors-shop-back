@@ -10,6 +10,4 @@ app.use(express.json());
 app.use("/users", userRouter);
 app.use("/cars", adRoutes);
 
-
-
 app.use(errorHandlerUtil);

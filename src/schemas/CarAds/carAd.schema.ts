@@ -1,29 +1,35 @@
-// import {z} from "zod";
+import { z } from "zod";
 
-// const fuelOptions = z.enum()
+const fuelOptions = z.enum(["Gasolina","Diesel","Alcool","Flex","Eletrico","hibrido"]);
+export const CarImageSchema = z.object({
+    img: z.string(),
+    isMain: z.boolean().default(false),
+    carId: z.string()
+});
 
-// const createdCarsAdsSchema = z.object({
-//     title: z.string(),
-//     brand: z.string(),
-//     model: z.string(),
-//     description: z.string(),
-//     year: z.string(),
-//     km: z.string(),
-//     color: z.string(),
-// });
+export const returnCarImage = CarImageSchema.extend({
+    id: z.string()
+});
+export const createdCarsAdsSchema = z.object({
+    title: z.string(),
+    brand: z.string(),
+    model: z.string(),
+    description: z.string(),
+    year: z.number().int(),
+    km: z.number().int(),
+    color: z.string(),
+    fuelType: fuelOptions,
+    price: z.number().refine(value => !Number.isNaN(value) && Number.isFinite(value), {
+        message: "O campo price deve ser um número decimal (float).",
+    }),
+    isActive: z.boolean().default(true),
+    
 
-// title String
-// brand String
-// model String 
-// description String
-// year Int
-// km Int
-// color String
-// fuelType FuelOptions
-// price Float
-// isActive Boolean @default(true)
-// // ownerId String
-// ownerId User @relation(fields: [id], references: [id])
-// createAt DateTime @default(now())
-// images CarImage[]
-// comments Comment[]
+});
+export const returnCreatAds = createdCarsAdsSchema.extend({
+    id: z.string(),
+    ownerId: z.string(),
+    // images: z.array(CarImageSchema),
+    // comments: Comment[],
+});
+
