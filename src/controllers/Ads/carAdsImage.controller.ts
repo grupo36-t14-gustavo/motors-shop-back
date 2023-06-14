@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { AppError } from "../../errors";
 import { createdPhotoCarService } from "../../services/CarAds/carAdsImg.service";
+import { AppError } from "../../utils/errorHandler.util";
 
 const created = 201;
 

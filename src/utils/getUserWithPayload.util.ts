@@ -1,7 +1,7 @@
 import { PrismaClient, User } from "@prisma/client";
-import { statusError } from "../constants";
-import { AppError } from "../errors";
 import { JwtPayload } from "jsonwebtoken";
+import { statusError } from "../constants";
+import { AppError } from "../utils/errorHandler.util";
 
 const prisma = new PrismaClient();
 
@@ -10,7 +10,7 @@ export const getUserWithPayloadUtil = async (
 ): Promise<User | null> => {
     const existentUser = await prisma.user.findUnique({
         where: {
-            id: payload.sub,
+            id: payload.sub || "",
         },
     });
 

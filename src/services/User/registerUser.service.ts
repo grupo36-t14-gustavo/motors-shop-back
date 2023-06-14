@@ -1,8 +1,8 @@
 import { PrismaClient, User } from "@prisma/client";
-import { ToffPassword } from "../../interfaces";
-import { returnCreatedUserWithPassword } from "../../schemas/User/schema.Register";
+import { statusError } from "../../constants";
+import { ToffPassword } from "../../interfaces/user.Interface";
+import { returnCreatedUserWithPassword } from "../../schemas/User/userRegister.schema";
 import { AppError } from "../../utils/errorHandler.util";
-
 const prisma = new PrismaClient();
 
 export const createdUserService = async(userData: User): Promise<ToffPassword> =>{
@@ -14,7 +14,7 @@ export const createdUserService = async(userData: User): Promise<ToffPassword> =
         return parseUser;
     } catch (error) {
         console.log(error);
-        // eslint-disable-next-line no-magic-numbers
-        throw new AppError("check the fields", 404);
+        
+        throw new AppError("check the fields", statusError.BAD_REQUEST);
     }
 };

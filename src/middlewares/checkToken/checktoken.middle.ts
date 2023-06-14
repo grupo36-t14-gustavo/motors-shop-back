@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { AppError } from "../../errors";
+import { AppError } from "../../utils/errorHandler.util";
 const verifyTokenIsValid = async (
     req: Request,
     resp: Response,
@@ -19,9 +19,10 @@ const verifyTokenIsValid = async (
         if (error) {
             throw new AppError(error.message, missingtoken);
         }
-        req.users = decoded;
-        req.users = {
+        req.user = decoded;
+        req.user = {
             id: decoded.sub,
+            cars: decoded.string
         };
       
     });
