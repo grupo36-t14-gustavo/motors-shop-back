@@ -1,11 +1,13 @@
-import { Router } from "express";
-import { createdAdsCarController } from "../../controllers/Ads/carAds.controller";
-import { createdPhotoController } from "../../controllers/Ads/carAdsImage.controller";
-import { verifyTokenIsValid } from "../../middlewares/checkToken/checktoken.middle";
-import { validateDataMiddleware } from "../../middlewares/validatedData/validatedData";
-import { createdCarsAdsSchema } from "../../schemas/CarAds/carAd.schema";
-const carRouter:Router = Router();
+import express from "express";
+import { deleteAdByAdIdController } from "../../controllers/CarAds/deleteCarAdById.controller";
+import { listAdsByUserIdController } from "../../controllers/CarAds/listCarAdsById.controller";
 
-carRouter.post("/car-ads", verifyTokenIsValid,validateDataMiddleware(createdCarsAdsSchema),createdAdsCarController);
-carRouter.post("/car-ads/:carId", createdPhotoController);
-export default carRouter;
+const carAdRouter = express.Router();
+
+// carRouter.post("/car-ads", verifyTokenIsValid,validateDataMiddleware(createdCarsAdsSchema),createdAdsCarController);
+// carRouter.post("/car-ads/:carId", createdPhotoController);
+
+carAdRouter.get("/ads/:userId", listAdsByUserIdController);
+carAdRouter.delete("/ads/:carId", deleteAdByAdIdController);
+
+export default carAdRouter;

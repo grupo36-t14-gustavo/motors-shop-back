@@ -1,9 +1,11 @@
 import { hashSync } from "bcryptjs";
 import { z } from "zod";
 
+const charMin = 2;
+const charMax = 125;
+
 export const createdUserSchema = z.object({
-    // eslint-disable-next-line no-magic-numbers
-    name: z.string().min(2).max(125),
+    name: z.string().min(charMin).max(charMax),
     email: z.string().email(),
     avatar: z.string().default(""),
     password: z.string().transform((pass) => {
