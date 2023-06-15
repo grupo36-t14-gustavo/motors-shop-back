@@ -1,9 +1,10 @@
 import { CarImage, PrismaClient } from "@prisma/client";
-import { TreturnPhotoCar } from "../../interfaces/Car/interfaceAdsCars";
+import { TreturnPhotoCar } from "../../interfaces/CarAds/carAds.interface";
 import { AppError } from "../../utils/errorHandler.util";
 
 const prisma = new PrismaClient();
-export const createdPhotoCarService = async (
+
+export const createCarPhotoService = async (
     photoData: CarImage,
     carId: string
 ): Promise<TreturnPhotoCar> => {

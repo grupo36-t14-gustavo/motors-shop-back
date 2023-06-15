@@ -12,11 +12,10 @@ export const verifyTokenIsValid = async (
     resp: Response,
     next: NextFunction
 ): Promise<void> => {
-    const missingtoken = 401;
     const access = 1;
     let token = req.headers.authorization;
     if (!token) {
-        throw new AppError("Missing bearer token", missingtoken);
+        throw new AppError("Missing bearer token", statusError.UNAUTHORIZED);
     }
     token = token.split(" ")[access];
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-explicit-any
