@@ -4,12 +4,11 @@ import { AppError } from "../../utils/errorHandler.util";
 
 const created = 201;
 
-export const createdPhotoController = async(req:Request, resp:Response) =>{
-
+export const createdPhotoController = async (req: Request, resp: Response) => {
     try {
         const carId = req.params.carId;
         const photoData = req.body;
-        const result = await createdPhotoCarService(photoData,carId);
+        const result = await createdPhotoCarService(photoData, carId);
         return resp.status(created).json(result);
     } catch (error) {
         console.log(error);

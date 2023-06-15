@@ -1,8 +1,8 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
 import * as dotenv from "dotenv";
 import { Request } from "express";
-import { AppError } from "../errors";
 import { statusError } from "../constants";
+import { AppError } from "./errorHandler.util";
 
 dotenv.config();
 

@@ -9,10 +9,15 @@ import { createdCarsAdsSchema } from "../../schemas/CarAds/carAd.schema";
 
 const carAdRouter = express.Router();
 
-carAdRouter.post("/ads", verifyTokenIsValid,validateDataMiddleware(createdCarsAdsSchema),createdAdsCarController);
-carAdRouter.post("/car-ads/:carId", createdPhotoController);
+carAdRouter.post(
+    "/ads",
+    verifyTokenIsValid,
+    validateDataMiddleware(createdCarsAdsSchema),
+    createdAdsCarController
+);
+carAdRouter.post("/ads/:carId", createdPhotoController);
 
 carAdRouter.get("/ads/:userId", listAdsByUserIdController);
-carAdRouter.delete("/ads/:carId", deleteAdByAdIdController);
+carAdRouter.delete("/ads/:carId", verifyTokenIsValid, deleteAdByAdIdController);
 
 export default carAdRouter;
