@@ -2,7 +2,7 @@ import "dotenv/config";
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { AppError } from "../../utils/errorHandler.util";
-const verifyTokenIsValid = async (
+export const verifyTokenIsValid = async (
     req: Request,
     resp: Response,
     next: NextFunction
@@ -29,6 +29,3 @@ const verifyTokenIsValid = async (
 
     return next();
 };
-
-export { verifyTokenIsValid };
-

@@ -4,9 +4,8 @@ import { createdUserService } from "../../services/User/registerUser.service";
 
 export const registerUserController = async(req:Request, resp:Response) =>{
     const userData = req.body;
-    const addressData=req.body.address;
-    const idUser = req.user.id;
-    const createdNewUser = await createdUserService(userData, addressData, idUser);
+ 
+    const createdNewUser = await createdUserService(userData);
     return resp.status(statusSuccess.CREATED).json(createdNewUser);
 
 };

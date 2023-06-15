@@ -1,6 +1,6 @@
 import { PrismaClient, User } from "@prisma/client";
-import { ToffPassword } from "../../interfaces";
-import { returnCreatedUserWithPassword } from "../../schemas/registerUser/schema.Register";
+import { ToffPassword } from "../../interfaces/user.Interface";
+import { returnCreatedUserWithPassword } from "../../schemas/User/userRegister.schema";
 
 const prisma = new PrismaClient();
 
