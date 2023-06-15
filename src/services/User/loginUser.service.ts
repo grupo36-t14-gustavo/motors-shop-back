@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { compare } from "bcryptjs";
 import "dotenv/config";
 import jwt from "jsonwebtoken";
-import { Tlogin } from "../../interfaces";
+import { Tlogin } from "../../interfaces/user.Interface";
 import { AppError } from "../../utils/errorHandler.util";
 const prisma = new PrismaClient();
 const errorCredentials = 401;

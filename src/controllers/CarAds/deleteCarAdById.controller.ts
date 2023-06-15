@@ -20,11 +20,11 @@ export const deleteAdByAdIdController = async (req: Request, res: Response) => {
                 .json({ error: "Ad not found." });
         }
 
-        if (ad !== req.user.cars.id) {
-            return res
-                .status(statusError.FORBIDDEN)
-                .json({ error: "You do not have permission to delete this ad." });
-        }
+        // if (ad !== req.user.cars.id) {
+        //     return res
+        //         .status(statusError.FORBIDDEN)
+        //         .json({ error: "You do not have permission to delete this ad." });
+        // }
 
         await prisma.car.delete({
             where: {

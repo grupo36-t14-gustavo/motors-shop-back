@@ -16,8 +16,6 @@ export const createdUserSchema = z.object({
     cpf: z.string(),
     bio: z.string().optional(),
     isAdmin: z.boolean().default(false),
-
-
 });
 export const returnCreatedUser = createdUserSchema.extend({
     id: z.string()
