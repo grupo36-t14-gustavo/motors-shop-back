@@ -1,14 +1,13 @@
 import { Request, Response } from "express";
-import { statusError, statusSuccess } from "../../constants";
-import { deleteUserById } from "../../services/User/deleteUserById.service";
+import { statusSuccess } from "../../constants";
+import { deleteUserByIdService } from "../../services/User/deleteUserById.service";
 
-export const deleteUserByIdController = async (req:Request, resp:Response)=>{
+export const deleteUserByIdController = async (
+    req: Request,
+    resp: Response
+) => {
     const idUser = req.user.id;
-    const deleteUser = await deleteUserById(idUser);
-    if(deleteUser){
-        return resp.status(statusSuccess.OK).json({menssage: "Usuário deletado com sucesso!"});
-    }
-    else{
-        return resp.status(statusError.BAD_REQUEST).json({message: "Usuário não encontrato"});
-    }
+    await deleteUserByIdService(idUser);
+
+    return resp.status(statusSuccess.NO_CONTENT);
 };

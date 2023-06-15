@@ -6,7 +6,6 @@ const prisma = new PrismaClient();
 
 export const updateCarAdService = async (req: Request, carId: string) => {
     const carAdData = req.body;
-
     const updatedCarAd = await prisma.car.update({
         where: {
             id: carId,
@@ -15,6 +14,5 @@ export const updateCarAdService = async (req: Request, carId: string) => {
     });
 
     const parsedCarAd = returnCreatedUserWithPassword.parse(updatedCarAd);
-
     return parsedCarAd;
 };

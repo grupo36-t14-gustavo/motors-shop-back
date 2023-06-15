@@ -4,7 +4,7 @@ import { AppError } from "../../utils/errorHandler.util";
 
 const prisma = new PrismaClient();
 
-export const deleteAdByAdIdService = async (
+export const deleteCarAdByIdService = async (
     userId: string,
     adId: string
 ): Promise<void> => {

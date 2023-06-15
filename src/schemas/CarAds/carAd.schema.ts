@@ -1,14 +1,21 @@
 import { z } from "zod";
 
-const fuelOptions = z.enum(["Gasolina","Diesel","Alcool","Flex","Eletrico","hibrido"]);
+const fuelOptions = z.enum([
+    "Gasolina",
+    "Diesel",
+    "Alcool",
+    "Flex",
+    "Eletrico",
+    "Hibrido",
+]);
 export const CarImageSchema = z.object({
     img: z.string(),
     isMain: z.boolean().default(false),
-    carId: z.string()
+    carId: z.string(),
 });
 
 export const returnCarImage = CarImageSchema.extend({
-    id: z.string()
+    id: z.string(),
 });
 export const createdCarsAdsSchema = z.object({
     title: z.string(),
@@ -19,17 +26,14 @@ export const createdCarsAdsSchema = z.object({
     km: z.number().int(),
     color: z.string(),
     fuelType: fuelOptions,
-    price: z.number().refine(value => !Number.isNaN(value) && Number.isFinite(value), {
-        message: "O campo price deve ser um número decimal (float).",
-    }),
+    price: z
+        .number()
+        .refine((value) => !Number.isNaN(value) && Number.isFinite(value), {
+            message: "Price field must be a decimal/float.",
+        }),
     isActive: z.boolean().default(true),
-    
-
 });
 export const returnCreatAds = createdCarsAdsSchema.extend({
     id: z.string(),
     ownerId: z.string(),
-    // images: z.array(CarImageSchema),
-    // comments: Comment[],
 });
-

@@ -1,4 +1,4 @@
-import { TreturnIdCarAdds } from "../../interfaces/Car/interfaceAdsCars";
+import { TreturnIdCarAdds } from "../../interfaces/CarAds/carAds.interface";
 
 declare global {
     namespace Express {
