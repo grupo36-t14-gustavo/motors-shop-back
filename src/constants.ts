@@ -6,7 +6,7 @@ const UNAUTHORIZED = 401;
 const FORBIDDEN = 403;
 const NOT_FOUND = 404;
 const CONFLICT = 409;
-const SERVER_ERROR =500;
+const SERVER_ERROR = 500;
 
 export const statusSuccess = {
     OK,
@@ -20,6 +20,5 @@ export const statusError = {
     FORBIDDEN,
     NOT_FOUND,
     CONFLICT,
-    SERVER_ERROR
-    
+    SERVER_ERROR,
 };

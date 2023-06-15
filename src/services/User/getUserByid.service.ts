@@ -3,22 +3,21 @@ import { AppError } from "../../utils/errorHandler.util";
 
 const prisma = new PrismaClient();
 
-export const getUserByIdService = async(userId:string) =>{
+export const getUserByIdService = async (userId: string) => {
+    const user = await prisma.user.findUnique({
+        where: {
+            id: userId,
+        },
+        include: {
+            address: true,
+            comments: true,
+            cars: true,
+        },
+    });
 
-    try {
-        const user = await prisma.user.findUnique({
-            where: {
-                id: userId,
-            },
-            include: {
-                addresses: true,
-                comments:true,
-                cars:true
-            }
-        });
-        return user;
-    } catch (error) {
-        throw new AppError("Falha ao obter informação do usuario");
+    if (!user) {
+        throw new AppError("User not found");
     }
 
+    return user;
 };

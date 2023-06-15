@@ -1,41 +1,11 @@
-import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
-import { statusError } from "../../constants";
-
-const prisma = new PrismaClient();
+import { deleteCarAdByIdService } from "../../services/CarAds/deleteCarAdById.service";
+import { statusSuccess } from "../../constants";
 
 export const deleteAdByAdIdController = async (req: Request, res: Response) => {
-    const { carId } = req.params;
+    const userId = req.user.id;
+    const carId = req.params.carId;
 
-    try {
-        const ad = await prisma.car.findUnique({
-            where: {
-                id: carId,
-            },
-        });
-
-        if (!ad) {
-            return res
-                .status(statusError.BAD_REQUEST)
-                .json({ error: "Ad not found." });
-        }
-
-        // if (ad !== req.user.cars.id) {
-        //     return res
-        //         .status(statusError.FORBIDDEN)
-        //         .json({ error: "You do not have permission to delete this ad." });
-        // }
-
-        await prisma.car.delete({
-            where: {
-                id: carId,
-            },
-        });
-        res.json({ message: "Anúncio excluído com sucesso." });
-    } catch (error) {
-        console.error(error);
-        res
-            .status(statusError.NOT_FOUND)
-            .json({ error: "Erro ao excluir o anúncio." });
-    }
+    await deleteCarAdByIdService(userId, carId);
+    res.status(statusSuccess.NO_CONTENT);
 };

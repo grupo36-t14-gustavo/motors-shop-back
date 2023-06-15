@@ -1,18 +1,23 @@
 import express from "express";
-import { createdAdsCarController } from "../../controllers/Ads/carAds.controller";
-import { createdPhotoController } from "../../controllers/Ads/carAdsImage.controller";
+import { createCarAdController } from "../../controllers/CarAds/createCarAds.controller";
+import { createCarAdImageController } from "../../controllers/CarPhotos/createCarAdPhotos.controller";
 import { deleteAdByAdIdController } from "../../controllers/CarAds/deleteCarAdById.controller";
 import { listAdsByUserIdController } from "../../controllers/CarAds/listCarAdsById.controller";
 import { validateDataMiddleware } from "../../middlewares/Global/validatedData";
-import { verifyTokenIsValid } from "../../middlewares/checkToken/checktoken.middle";
+import { verifyTokenIsValid } from "../../middlewares/Global/checktoken.middleware";
 import { createdCarsAdsSchema } from "../../schemas/CarAds/carAd.schema";
 
 const carAdRouter = express.Router();
 
-carAdRouter.post("/ads", verifyTokenIsValid,validateDataMiddleware(createdCarsAdsSchema),createdAdsCarController);
-carAdRouter.post("/car-ads/:carId", createdPhotoController);
-
+carAdRouter.post(
+    "/ads",
+    verifyTokenIsValid,
+    validateDataMiddleware(createdCarsAdsSchema),
+    createCarAdController
+);
 carAdRouter.get("/ads/:userId", listAdsByUserIdController);
-carAdRouter.delete("/ads/:carId", deleteAdByAdIdController);
+carAdRouter.delete("/ads/:carId", verifyTokenIsValid, deleteAdByAdIdController);
+
+carAdRouter.post("/ads/:carId", createCarAdImageController);
 
 export default carAdRouter;

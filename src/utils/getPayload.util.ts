@@ -1,8 +1,8 @@
-import jwt, { JwtPayload } from "jsonwebtoken";
 import * as dotenv from "dotenv";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import { Request } from "express";
-import { AppError } from "../errors";
 import { statusError } from "../constants";
+import { AppError } from "./errorHandler.util";
 
 dotenv.config();
 
@@ -16,7 +16,7 @@ export const getPayloadUtil = (request: Request): JwtPayload => {
             if (typeof payload !== "string") {
                 return payload;
             }
-        } catch (err) {
+        } catch {
             throw new AppError(
                 "Provided Access Token is not valid",
                 statusError.UNAUTHORIZED

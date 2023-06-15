@@ -8,7 +8,7 @@ export const createdAdress = z.object({
     number: z.string(),
     complement: z.string(),
 });
-export const returnCreatedAdress = createdAdress.extend({
-    id: z.string()
 
+export const returnCreatedAdress = createdAdress.extend({
+    id: z.string(),
 });

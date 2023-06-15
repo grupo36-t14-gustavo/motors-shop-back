@@ -1,41 +1,52 @@
-import { PrismaClient } from "@prisma/client";
-import { compare } from "bcryptjs";
 import "dotenv/config";
 import jwt from "jsonwebtoken";
-import { Tlogin } from "../../interfaces/user.Interface";
+import * as crypto from "crypto";
+import { PrismaClient } from "@prisma/client";
+import { compare } from "bcryptjs";
+import { Tlogin } from "../../interfaces/User/user.Interface";
 import { AppError } from "../../utils/errorHandler.util";
+import { statusError } from "../../constants";
+
 const prisma = new PrismaClient();
-const errorCredentials = 401;
-const createdLoginService = async(loginData: Tlogin): Promise<string> =>{
+
+export const userLoginService = async (loginData: Tlogin): Promise<string> => {
+    const secretKeyLength = 36;
 
     const user = await prisma.user.findUnique({
-        where:{
-            email:loginData.email
-        }
+        where: {
+            email: loginData.email,
+        },
     });
-    if(!user){
-        throw new AppError("Ivalid credentials", errorCredentials);
+    if (!user) {
+        throw new AppError("Ivalid credentials", statusError.UNAUTHORIZED);
     }
     const passwordMatch = await compare(loginData.password, user.password);
-    if (!passwordMatch){
-        throw new AppError("Invalid credentials", errorCredentials);
+    if (!passwordMatch) {
+        throw new AppError("Invalid credentials", statusError.UNAUTHORIZED);
     }
-    const secretKey = process.env.SECRET_KEY;
-    if(!secretKey){
-        throw new AppError("Secret key is not provider.");
-    }
+    const secretKey = process.env.SECRET_KEY || "akljçgslkgerph342643p72";
+    // crypto.randomBytes(secretKeyLength, (err, buf) => {
+    //     let resultKey = "";
+
+    //     if (err) {
+    //         console.log(err);
+    //         return;
+    //     }
+
+    //     console.log(buf);
+    //     resultKey += buf.toString("hex");
+    //     return resultKey;
+    // });
+
     const token: string = jwt.sign(
         {
-            id: user.id
+            id: user.id,
         },
         secretKey,
         {
             expiresIn: process.env.EXPIRES_IN,
-            subject: String(user.id)
+            subject: String(user.id),
         }
     );
     return token;
-
 };
-export { createdLoginService };
-

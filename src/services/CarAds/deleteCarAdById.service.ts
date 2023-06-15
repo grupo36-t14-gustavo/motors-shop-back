@@ -1,25 +1,33 @@
-//export const deleteAdByAdIdService = async (adId: string, userId: string): Promise<void> => {
-//     try {
-//         const ad = await prisma.car.findUnique({
-//             where: {
-//                 id: adId,
-//             },
-//         });
+import { PrismaClient } from "@prisma/client";
+import { statusError } from "../../constants";
+import { AppError } from "../../utils/errorHandler.util";
 
-//         if (!ad) {
-//             throw new Error("Anúncio não encontrado.");
-//         }
+const prisma = new PrismaClient();
 
-//         if (ad.ownerId !== userId) {
-//             throw new Error("Você não tem permissão para excluir este anúncio.");
-//         }
+export const deleteCarAdByIdService = async (
+    userId: string,
+    adId: string
+): Promise<void> => {
+    const ad = await prisma.car.findUnique({
+        where: {
+            id: adId,
+        },
+    });
 
-//         await prisma.car.delete({
-//             where: {
-//                 id: adId,
-//             },
-//         });
-//     } catch (error) {
-//         throw new Error("Erro ao excluir o anúncio.");
-//     }
-// };
+    if (!ad) {
+        throw new AppError("Ad not found.", statusError.BAD_REQUEST);
+    }
+
+    if (ad.ownerId !== userId) {
+        throw new AppError(
+            "You do not have permission to delete this ad.",
+            statusError.FORBIDDEN
+        );
+    }
+
+    await prisma.car.delete({
+        where: {
+            id: adId,
+        },
+    });
+};

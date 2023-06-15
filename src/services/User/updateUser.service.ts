@@ -1,5 +1,5 @@
 import { PrismaClient, User } from "@prisma/client";
-import { ToffPassword } from "../../interfaces/user.Interface";
+import { ToffPassword } from "../../interfaces/User/user.Interface";
 import { returnCreatedUserWithPassword } from "../../schemas/User/userRegister.schema";
 
 const prisma = new PrismaClient();
@@ -16,6 +16,5 @@ export const updateUserService = async (
     });
 
     const parsedUser = returnCreatedUserWithPassword.parse(updatedUser);
-
     return parsedUser;
 };
