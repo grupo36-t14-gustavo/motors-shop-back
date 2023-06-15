@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import { AppError } from "../../utils/errorHandler.util";
 import { PrismaClient } from "@prisma/client";
 import { statusError } from "../../constants";
+import { generateSecretKeyUtil } from "../../utils/generateRandomSecretKey.util";
 
 const prisma = new PrismaClient();
 
@@ -12,14 +13,20 @@ export const verifyTokenIsValid = async (
     resp: Response,
     next: NextFunction
 ): Promise<void> => {
+    const secretKeyLength = 36;
+
     const access = 1;
     let token = req.headers.authorization;
     if (!token) {
         throw new AppError("Missing bearer token", statusError.UNAUTHORIZED);
     }
     token = token.split(" ")[access];
+
+    const secretKey =
+        process.env.SECRET_KEY || generateSecretKeyUtil(secretKeyLength);
+
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-explicit-any
-    jwt.verify(token, process.env.SECRET_KEY!, async (error, decoded: any) => {
+    jwt.verify(token, secretKey, async (error, decoded: any) => {
         if (error) {
             throw new AppError(error.message, statusError.UNAUTHORIZED);
         }
