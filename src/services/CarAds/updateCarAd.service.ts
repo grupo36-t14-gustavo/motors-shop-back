@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { Request } from "express";
 import { returnCreatedUserWithPassword } from "../../schemas/User/userRegister.schema";
+import { returnCreatAds } from "../../schemas/CarAds/carAd.schema";
 
 const prisma = new PrismaClient();
 
@@ -13,6 +14,6 @@ export const updateCarAdService = async (req: Request, carId: string) => {
         data: carAdData,
     });
 
-    const parsedCarAd = returnCreatedUserWithPassword.parse(updatedCarAd);
+    const parsedCarAd = returnCreatAds.parse(updatedCarAd);
     return parsedCarAd;
 };
