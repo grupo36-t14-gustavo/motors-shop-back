@@ -2,4 +2,6 @@
 # exit on error
 set -o errexit
 npm install
-npx prisma generate
+npm run build
+npx prisma migrate reset
+npx prisma migrate deploy
