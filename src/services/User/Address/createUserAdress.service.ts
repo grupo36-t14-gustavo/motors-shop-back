@@ -1,8 +1,8 @@
 import { Address, PrismaClient } from "@prisma/client";
-import { statusError } from "../../constants";
-import { TReturnAddress } from "../../interfaces/User/user.Interface";
-import { createdAdress } from "../../schemas/User/userAddress.schema";
-import { AppError } from "../../utils/errorHandler.util";
+import { statusError } from "../../../constants";
+import { TReturnAddress } from "../../../interfaces/User/user.Interface";
+import { createdAdress } from "../../../schemas/User/userAddress.schema";
+import { AppError } from "../../../utils/errorHandler.util";
 
 const prisma = new PrismaClient();
 

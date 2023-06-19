@@ -14,12 +14,14 @@ export const createdUserSchema = z.object({
     birthdate: z.string(),
     cellphone: z.string(),
     cpf: z.string(),
-    bio: z.string().optional(),
+    bio: z.string().nullable(),
     isAdmin: z.boolean().default(false),
+    
 });
 
 export const returnCreatedUser = createdUserSchema.extend({
     id: z.string(),
+    
 });
 
 export const returnCreatedUserWithPassword = returnCreatedUser.omit({
