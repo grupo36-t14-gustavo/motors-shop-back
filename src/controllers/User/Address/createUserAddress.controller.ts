@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { statusSuccess } from "../../constants";
-import { createUserAddressService } from "../../services/User/createUserAdress.service";
+import { statusSuccess } from "../../../constants";
+import { createUserAddressService } from "../../../services/User/Address/createUserAdress.service";
 
 export const createUserAdressController = async (
     req: Request,
