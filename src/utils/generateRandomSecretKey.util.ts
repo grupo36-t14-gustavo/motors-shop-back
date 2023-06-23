@@ -1,4 +1,4 @@
-export const generateRandomKey = (length: number) => {
+const generateRandomKey = (length: number) => {
     const carater =
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
@@ -10,7 +10,7 @@ export const generateRandomKey = (length: number) => {
     return key;
 };
 
-export const validateSecretKey = (key: string) => {
+const validateSecretKey = (key: string) => {
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
     return regex.test(key);
 };

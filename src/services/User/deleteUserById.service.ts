@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-import { AppError } from "../../utils/errorHandler.util";
 
 const prisma = new PrismaClient();
 
@@ -9,6 +8,7 @@ export const deleteUserByIdService = async (userId: string) => {
             userId: userId,
         },
     });
+
     await prisma.car.deleteMany({
         where: {
             ownerId: userId,
@@ -19,6 +19,7 @@ export const deleteUserByIdService = async (userId: string) => {
             userId: userId,
         },
     });
+
     await prisma.carImage.deleteMany({
         where: {
             car: {
@@ -26,6 +27,7 @@ export const deleteUserByIdService = async (userId: string) => {
             },
         },
     });
+
     await prisma.user.delete({
         where: {
             id: userId,

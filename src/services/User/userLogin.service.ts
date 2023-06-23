@@ -17,6 +17,7 @@ export const userLoginService = async (loginData: Tlogin): Promise<string> => {
             email: loginData.email,
         },
     });
+
     if (!user) {
         throw new AppError("Ivalid credentials", statusError.UNAUTHORIZED);
     }
@@ -38,5 +39,6 @@ export const userLoginService = async (loginData: Tlogin): Promise<string> => {
             subject: String(user.id),
         }
     );
+
     return token;
 };
