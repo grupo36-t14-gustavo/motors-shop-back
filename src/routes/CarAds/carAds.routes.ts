@@ -12,7 +12,7 @@ const carAdRouter = express.Router();
 carAdRouter.post(
     "/ads",
     verifyTokenIsValid,
-    validateDataMiddleware(createdCarsAdsSchema),
+    // validateDataMiddleware(createdCarsAdsSchema),
     createCarAdController
 );
 carAdRouter.get("/ads/:userId", listAdsByUserIdController);

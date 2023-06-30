@@ -20,13 +20,3 @@ export const registerUserController = async (req: Request, resp: Response) => {
     }
    
 };
-
-// export const registerUserController = async (req: Request, res: Response)=> {
-    
-//     const userData = req.body;
-//     const address = req.body.address;
-
-//     const createdUser = await createUserService(userData, address);
-
-//     return res.status(statusSuccess.CREATED).json(createdUser);
-// };

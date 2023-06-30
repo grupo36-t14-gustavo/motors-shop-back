@@ -32,6 +32,7 @@ export const createdCarsAdsSchema = z.object({
             message: "Price field must be a decimal/float.",
         }),
     isActive: z.boolean().default(true),
+   
 });
 export const returnCreatAds = createdCarsAdsSchema.extend({
     id: z.string(),
