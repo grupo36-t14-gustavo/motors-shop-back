@@ -7,5 +7,5 @@ export const deleteAdByAdIdController = async (req: Request, res: Response) => {
     const carId = req.params.carId;
 
     await deleteCarAdByIdService(userId, carId);
-    res.status(statusSuccess.NO_CONTENT);
+    res.status(statusSuccess.NO_CONTENT).send();
 };

@@ -22,3 +22,5 @@ export const statusError = {
     CONFLICT,
     SERVER_ERROR,
 };
+
+export const BACKUP_PORT = 3000;
