@@ -9,5 +9,5 @@ export const deleteUserByIdController = async (
     const idUser = req.user.id;
     await deleteUserByIdService(idUser);
 
-    return resp.status(statusSuccess.NO_CONTENT);
+    return resp.status(statusSuccess.NO_CONTENT).send();
 };

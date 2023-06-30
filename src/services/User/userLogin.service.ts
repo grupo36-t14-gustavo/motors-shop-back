@@ -1,11 +1,11 @@
 import "dotenv/config";
 import jwt from "jsonwebtoken";
-import * as crypto from "crypto";
 import { PrismaClient } from "@prisma/client";
 import { compare } from "bcryptjs";
 import { Tlogin } from "../../interfaces/User/user.Interface";
 import { AppError } from "../../utils/errorHandler.util";
 import { statusError } from "../../constants";
+import { generateSecretKeyUtil } from "../../utils/generateRandomSecretKey.util";
 
 const prisma = new PrismaClient();
 
@@ -17,6 +17,7 @@ export const userLoginService = async (loginData: Tlogin): Promise<string> => {
             email: loginData.email,
         },
     });
+
     if (!user) {
         throw new AppError("Ivalid credentials", statusError.UNAUTHORIZED);
     }
@@ -24,19 +25,9 @@ export const userLoginService = async (loginData: Tlogin): Promise<string> => {
     if (!passwordMatch) {
         throw new AppError("Invalid credentials", statusError.UNAUTHORIZED);
     }
-    const secretKey = process.env.SECRET_KEY || "akljçgslkgerph342643p72";
-    // crypto.randomBytes(secretKeyLength, (err, buf) => {
-    //     let resultKey = "";
 
-    //     if (err) {
-    //         console.log(err);
-    //         return;
-    //     }
-
-    //     console.log(buf);
-    //     resultKey += buf.toString("hex");
-    //     return resultKey;
-    // });
+    const secretKey =
+        process.env.SECRET_KEY || generateSecretKeyUtil(secretKeyLength);
 
     const token: string = jwt.sign(
         {
@@ -48,5 +39,6 @@ export const userLoginService = async (loginData: Tlogin): Promise<string> => {
             subject: String(user.id),
         }
     );
+
     return token;
 };

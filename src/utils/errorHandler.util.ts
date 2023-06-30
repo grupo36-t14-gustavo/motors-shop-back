@@ -28,6 +28,6 @@ export const errorHandlerUtil = async (
     }
 
     return res.status(statusError.SERVER_ERROR).json({
-        message: "Internal server error",
+        message: `Internal server error: ${error.message}`,
     });
 };

@@ -11,30 +11,14 @@ export const checkEmailMiddleware = async (
     next: NextFunction
 ) => {
     const { email } = req.body;
-    if (!req.body.email) {
-        return next();
+
+    const duplicatedEmail = await prisma.user.findUnique({
+        where: { email },
+    });
+
+    if (duplicatedEmail) {
+        throw new AppError("Email already exists", statusError.CONFLICT);
     }
 
-    try {
-        const duplicatedEmail = await prisma.user.findUnique({
-            where: { email },
-        });
-
-        if (duplicatedEmail) {
-            const error = new AppError(
-                "Email already exists",
-                statusError.CONFLICT
-            );
-            return next(error);
-        }
-
-        return next();
-    } catch (error) {
-        console.error(error);
-        const internalError = new AppError(
-            "Internal server error",
-            statusError.SERVER_ERROR
-        );
-        return next(internalError);
-    }
+    next();
 };
