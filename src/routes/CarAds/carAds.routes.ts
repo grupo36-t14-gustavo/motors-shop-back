@@ -9,13 +9,14 @@ import { createdCarsAdsSchema } from "../../schemas/CarAds/carAd.schema";
 import { listAllCarAdsController } from "../../controllers/CarAds/listAllCarAds.controller";
 import { retrieveCarAdController } from "../../controllers/CarAds/retrieveCarAd.controller";
 import { updateCarAdController } from "../../controllers/CarAds/updateCarAd.controller";
+import { getCarUserNotLoggedControler } from "../../controllers/CarAds/getCarAdsUserNotLogged.controller";
 
 const carAdRouter = express.Router();
 
 carAdRouter.post(
     "/ads/",
     verifyTokenMiddleware,
-    validateDataMiddleware(createdCarsAdsSchema),
+    // validateDataMiddleware(createdCarsAdsSchema),
     createCarAdController
 );
 
@@ -42,5 +43,6 @@ carAdRouter.delete(
 );
 
 carAdRouter.post("/ads/:carId", createCarAdImageController);
+carAdRouter.get("", getCarUserNotLoggedControler);
 
 export default carAdRouter;
