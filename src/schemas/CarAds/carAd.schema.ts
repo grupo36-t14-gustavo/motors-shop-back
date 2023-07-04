@@ -22,16 +22,14 @@ export const createdCarsAdsSchema = z.object({
     brand: z.string(),
     model: z.string(),
     description: z.string(),
-    year: z.number().int(),
-    km: z.number().int(),
+    year: z.string(),
+    km: z.string(),
     color: z.string(),
     fuelType: fuelOptions,
-    price: z
-        .number()
-        .refine((value) => !Number.isNaN(value) && Number.isFinite(value), {
-            message: "Price field must be a decimal/float.",
-        }),
+    price: z.string(),
+    priceFipe: z.string(),
     isActive: z.boolean().default(true),
+
    
 });
 export const returnCreatAds = createdCarsAdsSchema.extend({
