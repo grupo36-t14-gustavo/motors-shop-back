@@ -4,14 +4,11 @@ import { PrismaClient } from "@prisma/client";
 import { compare } from "bcryptjs";
 import { Tlogin } from "../../interfaces/User/user.Interface";
 import { AppError } from "../../utils/errorHandler.util";
-import { statusError } from "../../constants";
-import { generateSecretKeyUtil } from "../../utils/generateRandomSecretKey.util";
+import { SECRET_KEY, statusError } from "../../constants";
 
 const prisma = new PrismaClient();
 
 export const userLoginService = async (loginData: Tlogin): Promise<string> => {
-    const secretKeyLength = 36;
-
     const user = await prisma.user.findUnique({
         where: {
             email: loginData.email,
@@ -26,14 +23,11 @@ export const userLoginService = async (loginData: Tlogin): Promise<string> => {
         throw new AppError("Invalid credentials", statusError.UNAUTHORIZED);
     }
 
-    const secretKey =
-        process.env.SECRET_KEY || generateSecretKeyUtil(secretKeyLength);
-
     const token: string = jwt.sign(
         {
             id: user.id,
         },
-        secretKey,
+        SECRET_KEY,
         {
             expiresIn: process.env.EXPIRES_IN,
             subject: String(user.id),
