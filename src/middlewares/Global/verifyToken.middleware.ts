@@ -23,22 +23,29 @@ export const verifyTokenMiddleware = async (
     const secretKey =
         process.env.SECRET_KEY || generateSecretKeyUtil(secretKeyLength);
 
+    const appError = new AppError(
+        "Provided Bearer Token is not valid",
+        statusError.UNAUTHORIZED
+    );
+
     if (type === "Bearer") {
         try {
             const payload = jwt.verify(token, secretKey);
+
+            console.log(payload);
+            console.log(payload.sub);
 
             if (typeof payload !== "string" && payload.sub) {
                 req.user = {
                     id: payload.sub,
                 };
+
+                next();
             }
         } catch {
-            throw new AppError(
-                "Provided Bearer Token is not valid",
-                statusError.UNAUTHORIZED
-            );
+            throw appError;
         }
+    } else {
+        throw appError;
     }
-
-    next();
 };
