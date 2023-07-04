@@ -20,7 +20,7 @@ carAdRouter.post(
     createCarAdController
 );
 
-carAdRouter.get("/ads/all/", verifyTokenMiddleware, listAllCarAdsController);
+carAdRouter.get("/ads/all/", listAllCarAdsController);
 
 carAdRouter.get(
     "/ads/:userId?",

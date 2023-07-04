@@ -32,7 +32,7 @@ export const listAllCarAdsService = async (page: number) => {
         take: perPageNum,
     });
 
-    const baseUrl = "http://localhost:3001/cars/ads/";
+    const baseUrl = "http://localhost:3001/cars/ads/all/";
     const previousPageValidation =
         pageNum - existentPageNum > noExistentPageNum
             ? `${baseUrl}?page=${pageNum - existentPageNum}`
