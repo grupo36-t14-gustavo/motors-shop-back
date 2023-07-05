@@ -11,7 +11,13 @@ export const getUserByIdService = async (userId: string) => {
         include: {
             address: true,
             comments: true,
-            cars: true,
+            // cars: true,
+            cars:{
+                include:{
+                    images:true
+                }
+            }
+           
         },
     });
 

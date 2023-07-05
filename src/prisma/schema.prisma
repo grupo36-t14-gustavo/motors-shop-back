@@ -40,11 +40,12 @@ model Car {
   brand String
   model String 
   description String
-  year Int
-  km Int
+  year String
+  km String
   color String
   fuelType FuelOptions
-  price Float
+  price String
+  priceFipe String
   isActive Boolean @default(true)
   ownerId String
   owner User @relation(fields: [ownerId], references: [id])
