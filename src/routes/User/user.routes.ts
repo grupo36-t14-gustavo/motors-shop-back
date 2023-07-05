@@ -19,7 +19,7 @@ userRouter.post(
     userLoginController
 );
 
-userRouter.get("", verifyTokenMiddleware, getUserByIdController);
+userRouter.get("/:userId?/", verifyTokenMiddleware, getUserByIdController);
 
 userRouter.patch("", verifyTokenMiddleware, updateUserController);
 

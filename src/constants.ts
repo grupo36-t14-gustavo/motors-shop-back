@@ -1,3 +1,8 @@
+import * as dotenv from "dotenv";
+import { generateSecretKeyUtil } from "./utils/generateRandomSecretKey.util";
+
+dotenv.config();
+
 const OK = 200;
 const CREATED = 201;
 const NO_CONTENT = 204;
@@ -22,5 +27,8 @@ export const statusError = {
     CONFLICT,
     SERVER_ERROR,
 };
+
+const maxKeyLength = 36;
+export const SECRET_KEY = process.env.SECRET_KEY || generateSecretKeyUtil(maxKeyLength);
 
 export const BACKUP_PORT = 3000;

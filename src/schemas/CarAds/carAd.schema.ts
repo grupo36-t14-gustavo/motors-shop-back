@@ -8,6 +8,7 @@ const fuelOptions = z.enum([
     "Eletrico",
     "Hibrido",
 ]);
+
 export const CarImageSchema = z.object({
     img: z.string(),
     isMain: z.boolean().default(false),
@@ -17,6 +18,7 @@ export const CarImageSchema = z.object({
 export const returnCarImage = CarImageSchema.extend({
     id: z.string(),
 });
+
 export const createdCarsAdsSchema = z.object({
     title: z.string(),
     brand: z.string(),
@@ -34,6 +36,9 @@ export const createdCarsAdsSchema = z.object({
     isActive: z.boolean().default(true),
    
 });
+
+export const updateCarAdSchema = createdCarsAdsSchema.partial();
+
 export const returnCreatAds = createdCarsAdsSchema.extend({
     id: z.string(),
     ownerId: z.string(),
