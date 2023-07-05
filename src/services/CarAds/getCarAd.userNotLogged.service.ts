@@ -1,13 +1,12 @@
-import {PrismaClient, Car, CarImage, Prisma} from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export const getCarsUsernotLoggedService = async()=>{
+export const getCarsUsernotLoggedService = async () => {
     const carAndImage = await prisma.car.findMany({
-        include:{
+        include: {
             images: true,
-        }
-    })
-    return carAndImage
-
-}
+        },
+    });
+    return carAndImage;
+};

@@ -1,5 +1,8 @@
-import { Car, PrismaClient } from "@prisma/client";
-import { ToffIdCarsAdds, TreturnIdCarAdds, TreturnPhotoCar } from "../../interfaces/CarAds/carAds.interface";
+import { PrismaClient } from "@prisma/client";
+import {
+    ToffIdCarsAdds,
+    TreturnPhotoCar,
+} from "../../interfaces/CarAds/carAds.interface";
 import { returnCreatAds } from "../../schemas/CarAds/carAd.schema";
 
 const prisma = new PrismaClient();
@@ -11,9 +14,8 @@ export const createCarAdService = async (
 ) => {
     const newAdsCar = await prisma.car.create({
         data: {
-           ...carData,
-           ownerId
-          
+            ...carData,
+            ownerId,
         },
     });
     const parseData = returnCreatAds.parse(newAdsCar);
@@ -22,15 +24,15 @@ export const createCarAdService = async (
         ownerId: ownerId,
     };
     const newImage = await prisma.carImage.create({
-        data:{
+        data: {
             ...photoData,
-            carId: parseData.id
-        }
-    }) 
+            carId: parseData.id,
+        },
+    });
     const returnData = {
         ...newAds,
-         newImage
-    }
-    
+        newImage,
+    };
+
     return returnData;
 };

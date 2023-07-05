@@ -1,8 +1,21 @@
-// import { PrismaClient } from "@prisma/client";
-// import { updateAddress } from "../../../schemas/User/userAddress.schema";
-// import { TUpdateAddress } from "../../../interfaces/User/user.Interface";
-// const prisma = PrismaClient();
+import { PrismaClient } from "@prisma/client";
 
-// const updateAddressService = async (updateData:updateAddress): Promise<TUpdateAddress> =>{
+import {
+    TReturnAddress,
+    TUpdateAddress,
+} from "../../../interfaces/User/user.Interface";
+const prisma = new PrismaClient();
 
+// export const updateAddressService = async (
+//     updateData: TUpdateAddress,
+//     carAdId: string
+// ): Promise<TReturnAddress> => {
+//     const updatedAdress = prisma.address.update({
+//         where: {
+//             id: carAdId,
+//         },
+//         data: updateData,
+//     });
+
+//     return updatedAdress;
 // };
