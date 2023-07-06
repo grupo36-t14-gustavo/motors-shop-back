@@ -24,7 +24,6 @@ carAdRouter.get("/ads/all/", listAllCarAdsController);
 
 carAdRouter.get(
     "/ads/:userId?",
-    verifyTokenMiddleware,
     listAdsByUserIdController
 );
 
