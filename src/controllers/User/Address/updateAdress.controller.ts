@@ -1,9 +1,11 @@
 import { Request, Response } from "express";
 import { statusSuccess } from "../../../constants";
+import { updateAddressService } from "../../../services/User/Address/updateAddressUser.service";
 
-export const updateAdressController = (req: Request, res: Response) => {
+export const updateAdressController = async (req: Request, res: Response) => {
+    const userId = req.user.id;
+    const updateData = req.body;
+    const updatedAdressController = await updateAddressService(updateData, userId);
 
-    // const updatedAdressController = await updateAdressService();
-
-    return res.status(statusSuccess.OK).json();
+    return res.status(statusSuccess.OK).json(updatedAdressController);
 };

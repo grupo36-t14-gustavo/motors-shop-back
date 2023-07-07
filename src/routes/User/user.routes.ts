@@ -8,6 +8,7 @@ import { validateDataMiddleware } from "../../middlewares/Global/validateData.mi
 import { createdLoginSchema } from "../../schemas/User/userLogin.schema";
 import { checkEmailMiddleware } from "../../middlewares/User/checkEmail.middleware";
 import { updateUserController } from "../../controllers/User/updateUser.controller";
+import { updateAdressController } from "../../controllers/User/Address/updateAdress.controller";
 
 const userRouter: Router = Router();
 
@@ -19,9 +20,10 @@ userRouter.post(
     userLoginController
 );
 
-userRouter.get("/:userId?/", getUserByIdController);
+userRouter.get("", verifyTokenMiddleware,getUserByIdController);
 
 userRouter.patch("", verifyTokenMiddleware, updateUserController);
+userRouter.patch("/profile", verifyTokenMiddleware, updateAdressController)
 
 userRouter.delete("", verifyTokenMiddleware, deleteUserByIdController);
 

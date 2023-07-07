@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 
 import {
     TReturnAddress,
@@ -6,16 +6,23 @@ import {
 } from "../../../interfaces/User/user.Interface";
 const prisma = new PrismaClient();
 
-// export const updateAddressService = async (
-//     updateData: TUpdateAddress,
-//     carAdId: string
-// ): Promise<TReturnAddress> => {
-//     const updatedAdress = prisma.address.update({
-//         where: {
-//             id: carAdId,
-//         },
-//         data: updateData,
-//     });
+export const updateAddressService = async (
+    updateData: TUpdateAddress,
+    userId: string
+):Promise<TUpdateAddress> => {
+    const updatedAdress = prisma.address.update({
+        where: {
+            userId: userId,
+        },
+        data:{
+        cep: updateData.cep,
+        state: updateData.state,
+        city: updateData.city,
+        street: updateData.street,
+        number: updateData.number,
+        complement: updateData.complement
+        } as Prisma.AddressUpdateInput,
+    });
 
-//     return updatedAdress;
-// };
+    return updatedAdress;
+ };
